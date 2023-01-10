@@ -1,0 +1,28 @@
+.container {
+    position: fixed;
+    width: 100vw;
+    padding: 2rem 3rem;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1.25rem;
+    top: 0;
+    background-color: transparent;
+    transition: top 0.3s, background-color 0.3s;
+}
+
+.container > h2 {
+    margin: 0;
+}
+
+.link {
+    margin: 0 0.5rem;
+    text-decoration: none;
+}
+
+.linkActive {
+    margin: 0 0.5rem;
+    text-decoration: underline;
+    text-underline-offset: 10px;
+}
