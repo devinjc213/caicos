@@ -1,9 +1,9 @@
 import type { NextPage } from 'next';
 import Image from 'next/image';
-import styles from '../styles/attractions.module.css';
-import Attraction from './components/attraction';
+import styles from 'src/styles/attractions.module.css';
+import Attraction from '../../components/attraction';
 
-const Attractions: NextPage = () => {
+const Index: NextPage = () => {
   return (
     <div>
       <div className={styles.header}>
@@ -81,4 +81,4 @@ const Attractions: NextPage = () => {
   )
 }
 
-export default Attractions;
+export default Index;

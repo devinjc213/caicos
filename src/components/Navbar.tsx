@@ -1,4 +1,4 @@
-import styles from "./Navbar.module.css";
+import styles from "src/components/Navbar.module.css";
 import Link from "next/link";
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router'
@@ -54,8 +54,8 @@ const Navbar = () => {
         <Link href='/attractions' legacyBehavior>
           <a className={router.pathname === '/attractions' ? styles.linkActive : styles.link}>Attractions</a>
         </Link>
-        <Link href='/accomodation' legacyBehavior>
-          <a className={router.pathname === '/accommodation' ? styles.linkActive : styles.link}>Accommodations</a>
+        <Link href='/accommodations' legacyBehavior>
+          <a className={router.pathname === '/accommodations' ? styles.linkActive : styles.link}>Accommodations</a>
         </Link>
         <Link href='/car-rentals' legacyBehavior>
           <a className={router.pathname === '/car-rentals' ? styles.linkActive : styles.link}>Car Rentals</a>

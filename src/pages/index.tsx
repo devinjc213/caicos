@@ -2,9 +2,9 @@ import styles from "src/styles/index.module.css";
 import { type NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import HomeHeader from "../../public/assets/home-header.jpg";
-import CenterBody from "../../public/assets/home-body.jpg";
-import Map from "../../public/assets/home-map.png";
+import HomeHeader from "public/assets/home/home-header.jpg";
+import CenterBody from "public/assets/home/home-body.jpg";
+import Map from "public/assets/home/home-map.png";
 
 const Home: NextPage = () => {
   return (

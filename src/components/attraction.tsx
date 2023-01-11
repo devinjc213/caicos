@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import styles from './attraction.module.css';
+import styles from 'src/components/attraction.module.css';
 
 const Attraction = ({ imageSrc, title, text }: { imageSrc: string, title: string, text: string}) => {
   return (
