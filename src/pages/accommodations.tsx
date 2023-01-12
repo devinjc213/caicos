@@ -1,13 +1,13 @@
 import Image from 'next/image';
-import styles from '../../styles/accommadations.module.css';
-import RentalLocation from '../../components/RentalLocation';
+import styles from 'src/styles/accommadations.module.css';
+import RentalLocation from '../components/RentalLocation';
 import { useState } from 'react';
-import type { RentalLocations } from '../../components/BookingModal';
-import BookingModal from '../../components/BookingModal';
+import type { RentalLocationsType } from '../components/BookingModal';
+import BookingModal from '../components/BookingModal';
 
 const Accommodations = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [location, setLocation] = useState<RentalLocations>(null);
+  const [location, setLocation] = useState<RentalLocationsType>('bottle_creek_retreat');
 
   return (
     <>

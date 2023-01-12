@@ -12,11 +12,42 @@
 }
 
 .modal {
-    background: white;
+    background: #BCAA99;
     border-radius: 15px;
     padding: 3rem;
 }
 
 .formAndDate {
     display: flex;
+    gap: 2rem;
+}
+
+.inputAndLabel {
+    display: flex;
+    flex-direction: column;
+}
+
+.inputAndLabel > input {
+    border-radius: 8px;
+    background-color: #F2F7F2;
+    outline: none;
+    padding: 0.5rem;
+}
+
+.submitButton {
+    background-color: #BBBE64;
+    align-self: flex-end;
+    padding: 1rem;
+    border: 1px solid #443850;
+    cursor: pointer;
+}
+
+.errorMessage {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    background: #DD1155;
+    border-radius: 10px;
+    padding: 0.5rem;
+    border: 2px solid #880044;
 }
