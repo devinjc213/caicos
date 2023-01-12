@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import styles from './rental-company.module.css';
+import styles from 'src/components/RentalCompany.module.css';
 
 interface RentalCompanyInterface {
   img: string

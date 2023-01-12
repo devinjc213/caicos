@@ -1,5 +1,5 @@
 import styles from '../styles/car-rentals.module.css';
-import RentalCompany from '../components/rental-company';
+import RentalCompany from 'src/components/RentalCompany';
 
 const CarRentals = () => {
   return (
