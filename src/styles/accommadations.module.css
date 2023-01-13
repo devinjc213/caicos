@@ -1,5 +1,6 @@
 .header {
     position: relative;
+    margin-bottom: 2rem;
 }
 
 .textOverPic {
@@ -8,6 +9,15 @@
     left: 3rem;
     color: white;
     width: 55%;
+}
+
+@media (max-width: 600px) {
+    .textOverPic {
+        left: 1rem;
+        font-size: 36px;
+        width: 80%;
+        line-height: 2.5rem;
+    }
 }
 
 .main {

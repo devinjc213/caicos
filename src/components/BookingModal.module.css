@@ -22,12 +22,23 @@
     gap: 2rem;
 }
 
+@media (max-width: 700px) {
+    .formAndDate {
+        flex-direction: column-reverse;
+    }
+
+    .formAndDate > input {
+        margin-bottom: 1rem;
+    }
+}
+
 .submitButton {
     background-color: #BBBE64;
     align-self: flex-end;
     padding: 1rem;
     border: 1px solid #443850;
     cursor: pointer;
+    margin-top: 1rem;
 }
 
 .errorMessage {

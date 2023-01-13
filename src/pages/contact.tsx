@@ -8,8 +8,8 @@ const Contact: NextPage = () => {
     <>
       <div className={styles.main}>
         <Image src='/assets/contact.jpg' layout='responsive' width='750' height='500' alt='contact' />
-        <div>
-          <h2 style={{ fontSize: '50.5px'}}>Have Questions?<br />Need recommendations?<br />Get in touch.</h2>
+        <div className={styles.header}>
+          <h1>Have Questions?<br />Need recommendations?<br />Get in touch.</h1>
           <div style={{ textAlign: 'center', marginBottom: '2rem', fontSize: '1.25rem' }}>
             Planning a trip to North Caicos & Middle Caicos? We can help. Contact us at
             {' '}
