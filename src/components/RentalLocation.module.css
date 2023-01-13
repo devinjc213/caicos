@@ -2,8 +2,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2rem;
-    margin: 3rem 0;
+    gap: 1rem;
+    margin: 1rem 0;
     color: #253551;
 }
 
@@ -17,6 +17,18 @@
     align-items: center;
     position: relative;
     width: fit-content;
+}
+
+.bookImg > img {
+    margin-bottom: 0.5rem;
+}
+
+@media (max-width: 550px) {
+    .bookImg > img {
+        max-width: 100%;
+        height: auto;
+        padding: 0 1rem;
+    }
 }
 
 .bookImg:hover > img {

@@ -45,6 +45,12 @@ type FormValidationType = {
   datesValid: boolean
 }
 
+const CloseIcon = (
+  <svg width='8' height='8' viewBox='0 0 8 8' fill='none' xmlns='http://www.w3.org/2000/svg'>
+    <path opacity='1' d='M1 1L4 4M4 4L1 7M4 4L7 1M4 4L7 7' stroke='black' strokeWidth='1.5' strokeLinecap='round' strokeLinejoin='round' />
+  </svg>
+);
+
 const BookingModal = ({ location, onClose }: { location: RentalLocationsType, onClose: () => void }) => {
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
@@ -179,9 +185,14 @@ const BookingModal = ({ location, onClose }: { location: RentalLocationsType, on
   return (
     <div className={styles.overlay}>
       <div className={styles.modal} ref={modalRef}>
-        <h3 style={{ margin: '0 0 3rem 0'}}>{location && location?.replace(/_/g, ' ').toUpperCase()}</h3>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+          <h3 style={{ margin: '0 0 2rem 0'}}>{location && location?.replace(/_/g, ' ').toUpperCase()}</h3>
+          <div onClick={onClose}>
+            {CloseIcon}
+          </div>
+        </div>
         <div className={styles.formAndDate}>
-          <div style={{ display: 'grid' }}>
+          <div style={{ display: 'grid', gap: '1rem' }}>
             <Input label='First name' value={firstName} onChange={e => setFirstName(e.target.value)} invalid={!valid.firstNameValid} />
             <Input label='Last name' value={lastName} onChange={e => setLastName(e.target.value)} invalid={!valid.lastNameValid} />
             <Input label='Email' value={email} onChange={e => setEmail(e.target.value)} invalid={!valid.emailValid} />

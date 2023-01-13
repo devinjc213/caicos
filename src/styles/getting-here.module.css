@@ -4,13 +4,19 @@
     align-items: center;
     margin: 0 auto;
     padding: 0 3rem;
-    max-width: 1400px;
+    max-width: 1200px;
     color: #253551;
 }
 
 .main > h2 {
     width: 100%;
+    font-size: 43px;
     text-align: left;
+}
+
+.main > p {
+    font-size: 1.25rem;
+    line-height: 1.5rem;
 }
 
 .textOverPic {

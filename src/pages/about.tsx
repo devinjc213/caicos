@@ -1,6 +1,7 @@
 import styles from "src/styles/about.module.css";
 import Image from "next/image";
 import type { NextPage } from 'next';
+import Link from 'next/link';
 
 const About: NextPage = () => {
   return (
@@ -47,7 +48,13 @@ const About: NextPage = () => {
         <p>
           Bear in mind, there’s a lot of ground to cover from North Caicos to Middle Caicos — so if you visit for the
           day, you’ll have to limit your stops in order to make it back to the dock for the last ferry of the day
-          (always double-check the Caribbean Cruisin ferry schedule to confirm departure times).
+          (always double-check the
+          {' '}
+          <a href='https://tciferry.tciferry.com/schedule/' target='_blank' rel='noreferrer'>
+            Caribbean Cruisin ferry schedule
+          </a>
+          {' '}
+          to confirm departure times).
         </p>
         <p>
           If you visit for the day and want to take your time exploring, consider going only so far as Mudjin Harbor.
@@ -60,8 +67,13 @@ const About: NextPage = () => {
           There is so much to see along your drive from North Caicos to Middle Caicos, the day can easily fly by. Just pay attention to the time.
         </p>
         <p>
-          If you’re planning a longer stay on North Caicos or Middle Caicos, you have a variety of accommodations to
-          choose from. You’ll also have ample more time to explore all the islands have to offer. You could easily
+          If you’re planning a longer stay on North Caicos or Middle Caicos, you have a
+          {' '}
+          <Link href='/accommodations'>
+            variety of accommodations
+          </Link>
+          {' '}
+          to choose from. You’ll also have ample more time to explore all the islands have to offer. You could easily
           spend an entire day beach hopping on North Caicos. Same goes for Mudjin Harbor, Bambarra Beach and Wild Cow
           Run. The more time you have on the islands, the more hidden gems you’re likely to discover.
         </p>
@@ -69,7 +81,7 @@ const About: NextPage = () => {
       <Image
         src='/assets/about/about-footer.jpg'
         layout='responsive'
-        style={{ maxHeight: '520px', maxWidth: '100vw', objectFit: 'cover' }}
+        style={{ maxHeight: '520px', maxWidth: '100vw', objectFit: 'cover', marginTop: '2rem' }}
         width='2500'
         height='1667'
         alt='footer'
