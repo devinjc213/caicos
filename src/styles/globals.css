@@ -20,12 +20,12 @@ p {
 }
 
 h1 {
-  font-size: 74px;
+  font-size: clamp(36px, 74px, 74px);
   font-weight: 400;
 }
 
 h2 {
-  font-size: 39px;
+  font-size: clamp(24px, 39px, 39px);
   font-weight: 400;
 }
 
