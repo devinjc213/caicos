@@ -2,6 +2,7 @@ import Image from 'next/image';
 import type { NextPage } from 'next';
 
 import styles from '../styles/contact.module.css';
+import Socials from '../components/Socials';
 
 const Contact: NextPage = () => {
   return (
@@ -35,14 +36,7 @@ const Contact: NextPage = () => {
             for a daily taste of island life.
           </div>
         </div>
-      </div>
-      <div className={styles.socials}>
-        <a href='https://www.instagram.com/northandmiddle/' target='_blank' rel='noreferrer'>
-          <Image src='/assets/instagram.png' width='50' height='50' alt='instagram' />
-        </a>
-        <a href='https://www.facebook.com/northandmiddlecaicos/' target='_blank' rel='noreferrer'>
-          <Image src='/assets/facebook.png' width='50' height='50' alt='facebook' />
-        </a>
+        <Socials />
       </div>
     </>
   );

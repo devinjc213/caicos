@@ -4,6 +4,7 @@ import Link from 'next/link';
 import styles from './Navbar.module.css';
 import { blackText } from './Navbar';
 import { useEffect, useState } from 'react';
+import Socials from '../components/Socials';
 
 const MobileNavBar = () => {
   const router = useRouter();
@@ -44,9 +45,9 @@ const MobileNavBar = () => {
 
   const Hamburger = (
     <svg width='15' height='12' viewBox='0 0 15 12' fill='none' xmlns='http://www.w3.org/2000/svg'>
-      <path d='M1 10.7857H14' stroke={show ? 'black' : 'white'} strokeOpacity='0.5' strokeWidth='2' strokeLinecap='round' />
-      <path d='M1 5.89285H14' stroke={show ? 'black' : 'white'} strokeOpacity='0.5' strokeWidth='2' strokeLinecap='round' />
-      <path d='M1 1H14' stroke={show ? 'black' : 'white'} strokeOpacity='0.5' strokeWidth='2' strokeLinecap='round' />
+      <path d='M1 10.7857H14' stroke={(show || blackText.includes(router.pathname)) ? 'black' : 'white'} strokeOpacity='0.5' strokeWidth='2' strokeLinecap='round' />
+      <path d='M1 5.89285H14' stroke={(show || blackText.includes(router.pathname)) ? 'black' : 'white'} strokeOpacity='0.5' strokeWidth='2' strokeLinecap='round' />
+      <path d='M1 1H14' stroke={(show || blackText.includes(router.pathname)) ? 'black' : 'white'} strokeOpacity='0.5' strokeWidth='2' strokeLinecap='round' />
     </svg>
   );
 
@@ -58,25 +59,30 @@ const MobileNavBar = () => {
     >
       <h2><Link href='/' style={{ textDecoration: "none" }}>North & Middle Caicos</Link></h2>
       <MobileMenuDropdown label={Hamburger} setShowParent={setShow}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-          <Link href='/about' legacyBehavior>
-            <a className={router.pathname === '/about' ? styles.linkActive : styles.link}>About</a>
-          </Link>
-          <Link href='/getting-here' legacyBehavior>
-            <a className={router.pathname === '/getting-here' ? styles.linkActive : styles.link}>Getting Here</a>
-          </Link>
-          <Link href='/attractions' legacyBehavior>
-            <a className={router.pathname === '/attractions' ? styles.linkActive : styles.link}>Attractions</a>
-          </Link>
-          <Link href='/accommodations' legacyBehavior>
-            <a className={router.pathname === '/accommodations' ? styles.linkActive : styles.link}>Accommodations</a>
-          </Link>
-          <Link href='/car-rentals' legacyBehavior>
-            <a className={router.pathname === '/car-rentals' ? styles.linkActive : styles.link}>Car Rentals</a>
-          </Link>
-          <Link href='/contact' legacyBehavior>
-            <a className={router.pathname === '/contact' ? styles.linkActive : styles.link}>Contact</a>
-          </Link>
+        <div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+            <Link href='/about' legacyBehavior>
+              <a className={router.pathname === '/about' ? styles.mobileLinkActive : styles.mobileLink}>About</a>
+            </Link>
+            <Link href='/getting-here' legacyBehavior>
+              <a className={router.pathname === '/getting-here' ? styles.mobileLinkActive : styles.mobileLink}>Getting Here</a>
+            </Link>
+            <Link href='/attractions' legacyBehavior>
+              <a className={router.pathname === '/attractions' ? styles.mobileLinkActive : styles.mobileLink}>Attractions</a>
+            </Link>
+            <Link href='/accommodations' legacyBehavior>
+              <a className={router.pathname === '/accommodations' ? styles.mobileLinkActive : styles.mobileLink}>Accommodations</a>
+            </Link>
+            <Link href='/car-rentals' legacyBehavior>
+              <a className={router.pathname === '/car-rentals' ? styles.mobileLinkActive : styles.mobileLink}>Car Rentals</a>
+            </Link>
+            <Link href='/contact' legacyBehavior>
+              <a className={router.pathname === '/contact' ? styles.mobileLinkActive : styles.mobileLink}>Contact</a>
+            </Link>
+          </div>
+          <div style={{ position: 'absolute', bottom: '2rem', left: '50%', transform: 'translateX(-50%)' }}>
+            <Socials />
+          </div>
         </div>
       </MobileMenuDropdown>
     </div>

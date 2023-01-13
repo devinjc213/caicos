@@ -4,7 +4,7 @@ import RentalCompany from '../components/RentalCompany';
 const CarRentals = () => {
   return (
     <div className={styles.main}>
-      <h2>Ready for an adventure? Rent a car to explore North & Middle Caicos</h2>
+      <h1>Ready for an adventure? Rent a car to explore North & Middle Caicos</h1>
       <p>
         Middle Caicos is the largest island of the Turks & Caicos, followed by North Caicos. With so much ground to
         cover, you{"'"}ll need a vehicle to get around the islands. Here are our preferred car rental companies based on

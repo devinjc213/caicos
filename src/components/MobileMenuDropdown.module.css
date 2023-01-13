@@ -11,12 +11,14 @@
 
 .backdrop {
     position: fixed;
-    top: 116px;
+    top: 100px;
     left: 0;
     width: 100vw;
     height: 100vh;
     background-color: white;
 }
+
+
 
 .navMenu {
     display: flex;
@@ -24,6 +26,16 @@
     background-color: white;
     color: black;
     padding-top: 0.5rem;
+}
+
+@media(max-width: 800px) {
+    .backdrop {
+        top: 60px;
+    }
+
+    .navMenu {
+        padding-top: 3rem;
+    }
 }
 
 .toggle {

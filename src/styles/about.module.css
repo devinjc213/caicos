@@ -8,6 +8,15 @@
     color: #253551;
 }
 
+@media (max-width: 600px) {
+    .main {
+        margin: 4rem auto 0 auto;
+    }
+    .main > p {
+        text-align: center;
+    }
+}
+
 .main > img {
     width: 100vw;
     height: auto;

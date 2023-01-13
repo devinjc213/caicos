@@ -14,7 +14,7 @@ const GettingHere = () => {
         style={{ maxHeight: '520px', maxWidth: '100vw', objectFit: 'cover', filter: 'brightness(80%)' }}
       />
       <div className={styles.main}>
-        <h1 style={{ fontSize: '57px' }}>How to Get to North & Middle Caicos</h1>
+        <h1>How to Get to North & Middle Caicos</h1>
         <hr style={{ marginBottom: '2rem' }} />
         <h2>Book your flight to PLS</h2>
         <p>
@@ -73,8 +73,8 @@ const GettingHere = () => {
           style={{ maxHeight: '520px', maxWidth: '100vw', objectFit: 'cover', marginTop: "5rem", zIndex: "-1" }}
         />
         <div className={styles.text}>
-          <h1>There{"'"}s only one question left:</h1>
-          <h1>What are you waiting for?</h1>
+          <h2>There{"'"}s only one question left:</h2>
+          <h2>What are you waiting for?</h2>
         </div>
       </div>
     </div>
