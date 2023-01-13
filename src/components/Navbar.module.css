@@ -23,7 +23,30 @@
     font-size: 1.25rem;
     top: 0;
     background-color: transparent;
+    color: white;
     transition: top 0.3s, background-color 0.3s;
+}
+
+.scrolledNav {
+    top: -120px;
+}
+
+.scrolledShowNav {
+    top: 0;
+    background-color: black;
+    color: white;
+}
+
+.scrolledShowNav * path {
+    stroke: white;
+}
+
+.blackText {
+    color: black;
+}
+
+.whiteText {
+    color: white;
 }
 
 @media (max-width: 1200px) {
