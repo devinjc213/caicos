@@ -1,0 +1,11 @@
+.inputAndLabel {
+    display: flex;
+    flex-direction: column;
+}
+
+.inputAndLabel > input {
+    border-radius: 8px;
+    background-color: #F2F7F2;
+    outline: none;
+    padding: 0.5rem;
+}
