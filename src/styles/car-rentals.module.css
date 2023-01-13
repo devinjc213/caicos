@@ -4,6 +4,27 @@
     text-align: center;
 }
 
+.main > h1 {
+    font-size: 39px;
+}
+
+@media (max-width: 800px) {
+    .main {
+        margin-top: 6rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .main > h1 {
+        font-size: 30px;
+        text-align: left;
+        margin-bottom: 3rem;
+    }
+    .main > p {
+        font-size: 24px;
+    }
+}
+
 .companies {
     display: flex;
     justify-content: space-around;

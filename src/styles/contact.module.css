@@ -7,15 +7,22 @@
     gap: 3rem;
 }
 
+.header > h1 {
+    font-size: 50px;
+}
+
 @media (max-width: 1400px) {
     .main {
         flex-direction: column-reverse;
     }
 }
 
-.header > h1 {
-    font-size: 50px;
+@media (max-width: 1200px) {
+    .main {
+        margin-top: 6rem;
+    }
 }
+
 
 @media (max-width: 800px) {
     .header > h1 {
@@ -24,6 +31,10 @@
 }
 
 @media (max-width: 600px) {
+    .main {
+        margin-top: 4rem;
+    }
+
     .header > h1 {
         font-size: 26px;
         margin-bottom: 2rem;

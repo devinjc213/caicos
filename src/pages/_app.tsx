@@ -5,6 +5,7 @@ import { api } from "../utils/api";
 import "../styles/globals.css";
 import Navbar from '../components/Navbar';
 import { Josefin_Sans } from '@next/font/google';
+import MobileNavBar from '../components/MobileNavBar';
 
 const JosefineSans = Josefin_Sans({
   weight: '400',
@@ -20,6 +21,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
     <SessionProvider session={session}>
       <main className={JosefineSans.className}>
         <Navbar />
+        <MobileNavBar />
         <Component {...pageProps} />
       </main>
     </SessionProvider>
