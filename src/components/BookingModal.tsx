@@ -1,11 +1,11 @@
 import { useOnClickOutside } from '../hooks/useClickOutside';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import type { Day, DayRange } from '@amir04lm26/react-modern-calendar-date-picker';
 import { Calendar, utils } from '@amir04lm26/react-modern-calendar-date-picker';
 import 'react-modern-calendar-datepicker/lib/DatePicker.css';
 import styles from './BookingModal.module.css';
 import { api } from '../utils/api';
-import { z, ZodError } from 'zod';
+import { z } from 'zod';
 import { getDaysInMonth } from '../utils/helpers';
 import Input from '../components/Input';
 

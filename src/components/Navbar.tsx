@@ -3,11 +3,12 @@ import Link from "next/link";
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router'
 
+export const blackText: string[] = ['/about', '/car-rentals', '/contact'];
+
 const Navbar = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const router = useRouter();
 
-  const blackText: string[] = ['/about', '/car-rentals', '/contact'];
 
   const scrollFunction = () => {
     const doc = document.getElementById('container');
@@ -42,7 +43,7 @@ const Navbar = () => {
   })
 
   return (
-    <div className={styles.container} style={{ color: blackText.includes(router.pathname) ? 'black' : 'white'}} id='container'>
+    <div className={styles.container} style={{ color: blackText.includes(router.pathname) ? 'black' : 'white'}}>
       <h2><Link href='/' style={{ textDecoration: "none" }}>North & Middle Caicos</Link></h2>
       <div>
         <Link href='/about' legacyBehavior>

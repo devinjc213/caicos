@@ -12,6 +12,32 @@
     transition: top 0.3s, background-color 0.3s;
 }
 
+.mobileContainer {
+    position: fixed;
+    width: 100vw;
+    padding: 0 3rem;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1.25rem;
+    top: 0;
+    background-color: transparent;
+    transition: top 0.3s, background-color 0.3s;
+}
+
+@media (max-width: 1200px) {
+    .container {
+        display: none;
+    }
+}
+
+@media (min-width: 1200px) {
+    .mobileContainer {
+        display: none;
+    }
+}
+
 .container > h2 {
     margin: 0;
 }
