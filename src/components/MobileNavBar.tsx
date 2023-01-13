@@ -11,34 +11,20 @@ const MobileNavBar = () => {
   const router = useRouter();
   const [show, setShow] = useState<boolean>(false);
   const [scrollPosition, setScrollPosition] = useState(0);
+  const initalClass = (blackText.includes(router.pathname))
+    ? `${styles.mobileContainer!} ${styles.blackText!}`
+    : `${styles.mobileContainer!} ${styles.whiteText!}`
+  const [scrollClasses, setScrollClasses] = useState<string>(initalClass)
 
   const scrollFunction = () => {
-    const doc = document.getElementById('mobileContainer');
-    const svg = document.querySelectorAll('svg > path');
+    if (window.scrollY > 20) setScrollClasses(`${styles.mobileContainer!} ${styles.scrolledNav!}`);
+    else setScrollClasses(`${styles.mobileContainer!}`);
 
-    if (!doc || !svg) return
-
-    if (window.scrollY > 20) {
-      doc.style.top = '-120px';
-    } else {
-      doc.style.top = '0';
-      doc.style.backgroundColor = 'transparent';
-    }
-
-    if (window.scrollY < scrollPosition) {
-      doc.style.top = '0';
-      doc.style.color = 'white';
-      doc.style.backgroundColor = 'black';
-      svg.forEach(path => path.setAttribute('stroke', 'white'));
-    }
+    if (window.scrollY < scrollPosition) setScrollClasses(`${styles.mobileContainer!} ${styles.scrolledShowNav!}`);
 
     if (window.scrollY === 0) {
-      doc.style.top = '0';
-      doc.style.backgroundColor = 'transparent';
-      if (blackText.includes(router.pathname)) {
-        doc.style.color = 'black';
-        svg.forEach(path => path.setAttribute('stroke', 'black'));
-      }
+      if (blackText.includes(router.pathname)) setScrollClasses(`${styles.mobileContainer!} ${styles.blackText!}`);
+      else setScrollClasses(`${styles.mobileContainer!} ${styles.whiteText!}`);
     }
 
     setScrollPosition(window.scrollY);
@@ -58,12 +44,10 @@ const MobileNavBar = () => {
     </svg>
   );
 
+  useEffect(() => console.log(scrollClasses), [scrollClasses])
+
   return (
-    <div
-      className={styles.mobileContainer}
-      style={{ color: show ? 'black' : blackText.includes(router.pathname) ? 'black' : 'white', background: show ? 'white' : 'transparent' }}
-      id='mobileContainer'
-    >
+    <div className={scrollClasses}>
       <h2><Link href='/' style={{ textDecoration: "none" }}>North & Middle Caicos</Link></h2>
       <MobileMenuDropdown label={Hamburger} setShowParent={setShow}>
         <div>
