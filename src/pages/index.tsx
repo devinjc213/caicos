@@ -2,9 +2,9 @@ import styles from "src/styles/index.module.css";
 import { type NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import HomeHeader from "public/assets/home/home-header.jpg";
 import CenterBody from "public/assets/home/home-body.jpg";
 import Map from "public/assets/home/home-map.png";
+import Socials from '../components/Socials';
 
 const Home: NextPage = () => {
   return (
@@ -20,7 +20,13 @@ const Home: NextPage = () => {
       <div className={styles.header}>
         <h2>Welcome to the islands of</h2>
         <h1>North Caicos + Middle Caicos</h1>
-        <Image src={HomeHeader} alt="header" style={{ filter: 'brightness(80%)' }} />
+        <Image
+          src='/assets/home/home-header.jpg'
+          width='1717'
+          height='1145'
+          alt="header"
+          style={{ maxHeight: '620px', maxWidth: '100vw', objectFit: 'cover', filter: 'brightness(80%)' }}
+        />
       </div>
       <div className={styles.main}>
         <h2>There{"'"}s something special about North & Middle Caicos.</h2>
@@ -58,7 +64,10 @@ const Home: NextPage = () => {
           less than two hours, or from New York in less than four hours.
         </p>
         <hr />
-        <h2>Travel off the beaten path in the Turks & Caicos Islands</h2>
+        <div style={{ textAlign: 'center' }}>
+          <h2>Travel off the beaten path in the Turks & Caicos Islands</h2>
+          <Socials />
+        </div>
       </div>
     </>
   );

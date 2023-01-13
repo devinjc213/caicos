@@ -2,9 +2,10 @@ import { MobileMenuDropdown } from './MobileMenuDropdown';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import styles from './Navbar.module.css';
-import { blackText } from './Navbar';
 import { useEffect, useState } from 'react';
 import Socials from '../components/Socials';
+
+const blackText: string[] = ['/about', '/car-rentals', '/contact'];
 
 const MobileNavBar = () => {
   const router = useRouter();
@@ -13,7 +14,9 @@ const MobileNavBar = () => {
 
   const scrollFunction = () => {
     const doc = document.getElementById('mobileContainer');
-    if (!doc) return
+    const svg = document.querySelectorAll('svg > path');
+
+    if (!doc || !svg) return
 
     if (window.scrollY > 20) {
       doc.style.top = '-120px';
@@ -26,12 +29,16 @@ const MobileNavBar = () => {
       doc.style.top = '0';
       doc.style.color = 'white';
       doc.style.backgroundColor = 'black';
+      svg.forEach(path => path.setAttribute('stroke', 'white'));
     }
 
     if (window.scrollY === 0) {
       doc.style.top = '0';
       doc.style.backgroundColor = 'transparent';
-      if (blackText.includes(router.pathname)) doc.style.color = 'black';
+      if (blackText.includes(router.pathname)) {
+        doc.style.color = 'black';
+        svg.forEach(path => path.setAttribute('stroke', 'black'));
+      }
     }
 
     setScrollPosition(window.scrollY);
@@ -44,7 +51,7 @@ const MobileNavBar = () => {
   })
 
   const Hamburger = (
-    <svg width='15' height='12' viewBox='0 0 15 12' fill='none' xmlns='http://www.w3.org/2000/svg'>
+    <svg id='svg' width='15' height='12' viewBox='0 0 15 12' fill='none' xmlns='http://www.w3.org/2000/svg'>
       <path d='M1 10.7857H14' stroke={(show || blackText.includes(router.pathname)) ? 'black' : 'white'} strokeOpacity='0.5' strokeWidth='2' strokeLinecap='round' />
       <path d='M1 5.89285H14' stroke={(show || blackText.includes(router.pathname)) ? 'black' : 'white'} strokeOpacity='0.5' strokeWidth='2' strokeLinecap='round' />
       <path d='M1 1H14' stroke={(show || blackText.includes(router.pathname)) ? 'black' : 'white'} strokeOpacity='0.5' strokeWidth='2' strokeLinecap='round' />
@@ -61,6 +68,9 @@ const MobileNavBar = () => {
       <MobileMenuDropdown label={Hamburger} setShowParent={setShow}>
         <div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+            <Link href='/' legacyBehavior>
+              <a className={router.pathname === '/' ? styles.mobileLinkActive : styles.mobileLink}>Home</a>
+            </Link>
             <Link href='/about' legacyBehavior>
               <a className={router.pathname === '/about' ? styles.mobileLinkActive : styles.mobileLink}>About</a>
             </Link>

@@ -36,8 +36,8 @@ const Contact: NextPage = () => {
             for a daily taste of island life.
           </div>
         </div>
-        <Socials />
       </div>
+      <Socials />
     </>
   );
 }
