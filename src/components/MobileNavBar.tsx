@@ -11,13 +11,11 @@ const MobileNavBar = () => {
   const router = useRouter();
   const [show, setShow] = useState<boolean>(false);
   const [scrollPosition, setScrollPosition] = useState(0);
-  const [strokeBlack, setStrokeBlack] = useState<boolean>(show || blackText.includes(router.pathname));
 
   const scrollFunction = () => {
     const doc = document.getElementById('mobileContainer');
     const svg = document.querySelectorAll('svg > path');
 
-    console.log(svg);
     if (!doc || !svg) return
 
     if (window.scrollY > 20) {
@@ -44,7 +42,6 @@ const MobileNavBar = () => {
     }
 
     setScrollPosition(window.scrollY);
-    setStrokeBlack(show || blackText.includes(router.pathname));
   }
 
   useEffect(() => {
