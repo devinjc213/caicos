@@ -49,18 +49,6 @@
     color: white;
 }
 
-@media (max-width: 1200px) {
-    .container {
-        display: none;
-    }
-}
-
-@media (min-width: 1200px) {
-    .mobileContainer {
-        display: none;
-    }
-}
-
 @media (max-width: 800px) {
     .mobileContainer {
         padding: 0 1rem;
