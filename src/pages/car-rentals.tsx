@@ -13,7 +13,7 @@ const CarRentals = () => {
       </p>
       <div className={styles.companies}>
         <RentalCompany
-          img='/assets/turqoise.png'
+          img='/assets/car-rentals/turqoise.png'
           title='Turquoise Rent A Car'
           website='turquoisecarrental.com'
           email='info@turquoisecarrental.com'
@@ -22,7 +22,7 @@ const CarRentals = () => {
           buttonLink='https://www.turquoisecarrental.com/contact_us.php'
         />
         <RentalCompany
-          img='/assets/als.png'
+          img='/assets/car-rentals/als.png'
           title={`Al's Rent A Car`}
           website='alsrentacar.com'
           email='reservations@alsrentacar.com'
@@ -31,7 +31,7 @@ const CarRentals = () => {
           buttonLink='https://www5.rentcentric.com/Client6874/WebCustomer/WebCustomer.aspx'
         />
         <RentalCompany
-          img='/assets/superior.png'
+          img='/assets/car-rentals/superior.png'
           title='Superior Auto Rentals'
           website='superiorautorentals.com'
           email='info@superautorentals.com'

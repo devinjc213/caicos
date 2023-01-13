@@ -8,9 +8,9 @@ const About: NextPage = () => {
       <div className={styles.main}>
         <h2>Off the beaten path: Explore North & Middle Caicos</h2>
         <div className={styles.imageRow}>
-          <Image src='/assets/about1.jpg' width='350' height='233' priority alt='image' />
-          <Image src='/assets/about2.jpg' width='350' height='233' priority alt='image' />
-          <Image src='/assets/about3.jpg' width='350' height='233' priority alt='image' />
+          <Image src='/assets/about/about1.jpg' width='350' height='233' priority alt='image' />
+          <Image src='/assets/about/about2.jpg' width='350' height='233' priority alt='image' />
+          <Image src='/assets/about/about3.jpg' width='350' height='233' priority alt='image' />
         </div>
         <p>
           If you’re searching for someplace remote, quiet, untouched and chockfull of adventure — stop what you’re
@@ -67,7 +67,7 @@ const About: NextPage = () => {
         </p>
       </div>
       <Image
-        src='/assets/about-footer.jpg'
+        src='/assets/about/about-footer.jpg'
         layout='responsive'
         style={{ maxHeight: '520px', maxWidth: '100vw', objectFit: 'cover' }}
         width='2500'

@@ -5,7 +5,7 @@ const GettingHere = () => {
   return (
     <div>
       <Image
-        src='/assets/getting-here-header.jpg'
+        src='/assets/getting-here/getting-here-header.jpg'
         width='2500'
         height='1650'
         alt='header'
@@ -44,7 +44,7 @@ const GettingHere = () => {
       </div>
       <div className={styles.textOverPic}>
         <Image
-          src='/assets/getting-here-footer.jpg'
+          src='/assets/getting-here/getting-here-footer.jpg'
           width='2500'
           height='1650'
           alt='header'
