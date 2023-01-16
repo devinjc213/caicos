@@ -5,7 +5,7 @@ import styles from './Navbar.module.css';
 import { useEffect, useState } from 'react';
 import Socials from '../components/Socials';
 
-const blackText: string[] = ['/about', '/car-rentals', '/contact'];
+const blackText: string[] = ['/about', '/car-rentals', '/contact', '/bookings'];
 
 const MobileNavBar = () => {
   const router = useRouter();

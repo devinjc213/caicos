@@ -45,3 +45,20 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  overflow: auto;
+}
+
+td, th {
+  border: 1px solid #253551;
+  text-align: left;
+  padding: 1rem;
+  line-height: 1rem;
+}
+
+tr:nth-child(even) {
+  background-color: #BCAA99;
+}

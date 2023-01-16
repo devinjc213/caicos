@@ -17,7 +17,7 @@ export type RentalLocationsType = 'bottle_creek_retreat'
   | 'dragon_cay_resort'
   | 'creek_view_cottage'
 
-const RentalLocations = {
+export const RentalLocations = {
   'bottle_creek_retreat':  1,
   'empyrean_villas': 2,
   'datai_villas': 3,
@@ -27,7 +27,8 @@ const RentalLocations = {
   'creek_view_cottage': 7
 }
 
-type BookingType = {
+export type BookingType = {
+  id: string
   firstName: string
   lastName: string
   email: string
