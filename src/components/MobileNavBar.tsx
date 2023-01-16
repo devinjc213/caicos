@@ -47,8 +47,6 @@ const MobileNavBar = () => {
     </svg>
   );
 
-  useEffect(() => console.log(scrollClasses), [scrollClasses])
-
   return (
     <div className={scrollClasses}>
       <h2><Link href='/' style={{ textDecoration: "none" }}>North & Middle Caicos</Link></h2>

@@ -24,11 +24,12 @@
     margin-top: 2rem;
 }
 
-.deleteBtn {
-    background: #871B03;
+.confirmBtn {
+    background: #BBBE64;
     padding: 1rem 2rem;
     border: none;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .cancelBtn {
@@ -36,9 +37,21 @@
     padding: 1rem 2rem;
     border: none;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .row {
     display: flex;
     justify-content: space-between;
+}
+
+.content {
+    display: flex;
+    gap: 2rem;
+}
+
+.leftSide {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 }

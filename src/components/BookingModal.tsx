@@ -8,6 +8,8 @@ import { api } from '../utils/api';
 import { z } from 'zod';
 import { getDaysInMonth } from '../utils/helpers';
 import Input from '../components/Input';
+import { Icons } from '../assets/svgs';
+import { useGetBlackoutDays } from '../hooks/useGetBlackoutDays';
 
 export type RentalLocationsType = 'bottle_creek_retreat'
   | 'empyrean_villas'
@@ -46,19 +48,12 @@ type FormValidationType = {
   datesValid: boolean
 }
 
-const CloseIcon = (
-  <svg width='8' height='8' viewBox='0 0 8 8' fill='none' xmlns='http://www.w3.org/2000/svg'>
-    <path opacity='1' d='M1 1L4 4M4 4L1 7M4 4L7 1M4 4L7 7' stroke='black' strokeWidth='1.5' strokeLinecap='round' strokeLinejoin='round' />
-  </svg>
-);
-
 const BookingModal = ({ location, onClose }: { location: RentalLocationsType, onClose: () => void }) => {
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [phoneNumber, setPhoneNumber] = useState<string>();
   const [showError, setShowError] = useState<boolean>(false);
-  const [blackoutDays, setBlackoutDays] = useState<Day[]>([]);
   const [selectedDayRange, setSelectedDayRange] = useState<DayRange>({
     from: null,
     to: null
@@ -72,7 +67,7 @@ const BookingModal = ({ location, onClose }: { location: RentalLocationsType, on
   });
   const modalRef = useRef(null);
   const mutation = api.bookings.createBooking.useMutation();
-  const existingBookings = api.bookings.getBookingsAtLocation.useQuery({ id: RentalLocations[location] });
+  const blackoutDays = useGetBlackoutDays(RentalLocations[location]);
 
   useOnClickOutside([modalRef], onClose);
 
@@ -89,45 +84,6 @@ const BookingModal = ({ location, onClose }: { location: RentalLocationsType, on
       onClose();
     }
   }, [mutation, onClose]);
-
-  useEffect(() => {
-    const blockDateArray: Day[] = [];
-
-    existingBookings?.data?.map((bookings: BookingType) => {
-      const {checkInDate, checkOutDate} = bookings;
-      const checkInDay = Number(checkInDate.split('-')[2]);
-      const checkInMonth = Number(checkInDate.split('-')[1]);
-      const checkInYear = Number(checkInDate.split('-')[0]);
-
-      const checkOutDay = Number(checkOutDate.split('-')[2]);
-      const checkOutMonth = Number(checkOutDate.split('-')[1]);
-      const checkOutYear = Number(checkOutDate.split('-')[0]);
-
-      const daysInCheckInMonth = getDaysInMonth(checkInYear, checkInMonth);
-      
-      if (checkOutYear - checkInYear === 0 && checkOutMonth - checkInMonth === 0) {
-        for (let i = checkInDay; i <= checkOutDay + 1; i++) {
-          blockDateArray.push({ year: checkInYear, month: checkInMonth, day: i });
-        }
-      } else if (checkOutYear - checkInYear === 0 && checkOutMonth - checkInMonth > 0 && daysInCheckInMonth) {
-        for (let i = checkInDay; i <= daysInCheckInMonth; i++) {
-          blockDateArray.push({ year: checkInYear, month: checkInMonth, day: i });
-        }
-        for (let i = 1; i <= checkOutDay; i ++) {
-          blockDateArray.push({ year: checkInYear, month: checkOutMonth, day: i });
-        }
-      } else if (checkOutYear - checkInYear > 0 && daysInCheckInMonth) {
-        for (let i = checkInDay; i <= daysInCheckInMonth; i++) {
-          blockDateArray.push({ year: checkInYear, month: checkInMonth, day: i });
-        }
-        for (let i = 1; i <= checkOutDay; i ++) {
-          blockDateArray.push({ year: checkOutYear, month: checkOutMonth, day: i });
-        }
-      }
-    });
-
-    setBlackoutDays(blockDateArray);
-  }, [existingBookings?.data]);
 
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
@@ -189,7 +145,7 @@ const BookingModal = ({ location, onClose }: { location: RentalLocationsType, on
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <h3 style={{ margin: '0 0 2rem 0'}}>{location && location?.replace(/_/g, ' ').toUpperCase()}</h3>
           <div onClick={onClose}>
-            {CloseIcon}
+            {Icons.Close}
           </div>
         </div>
         <div className={styles.formAndDate}>
