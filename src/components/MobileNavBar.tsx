@@ -11,10 +11,13 @@ const MobileNavBar = () => {
   const router = useRouter();
   const [show, setShow] = useState<boolean>(false);
   const [scrollPosition, setScrollPosition] = useState(0);
-  const initalClass = (blackText.includes(router.pathname))
-    ? `${styles.mobileContainer!} ${styles.blackText!}`
-    : `${styles.mobileContainer!} ${styles.whiteText!}`
-  const [scrollClasses, setScrollClasses] = useState<string>(initalClass)
+  const [scrollClasses, setScrollClasses] = useState<string>(`${styles.mobileContainer!}`)
+
+  useEffect(() => {
+    setScrollClasses((blackText.includes(router.pathname))
+      ? `${styles.mobileContainer!} ${styles.blackText!}`
+      : `${styles.mobileContainer!} ${styles.whiteText!}`);
+  }, [router.pathname]);
 
   const scrollFunction = () => {
     if (window.scrollY > 20) setScrollClasses(`${styles.mobileContainer!} ${styles.scrolledNav!}`);

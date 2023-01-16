@@ -8,29 +8,23 @@ export const blackText: string[] = ['/about', '/car-rentals', '/contact'];
 const Navbar = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const router = useRouter();
+  const [scrollClasses, setScrollClasses] = useState<string>(`${styles.container!}`)
 
+  useEffect(() => {
+    setScrollClasses((blackText.includes(router.pathname))
+      ? `${styles.container!} ${styles.blackText!}`
+      : `${styles.container!} ${styles.whiteText!}`);
+  }, [router.pathname]);
 
   const scrollFunction = () => {
-    const doc = document.getElementById('container');
-    if (!doc) return
+    if (window.scrollY > 20) setScrollClasses(`${styles.container!} ${styles.scrolledNav!}`);
+    else setScrollClasses(`${styles.mobileContainer!}`);
 
-    if (window.scrollY > 20) {
-      doc.style.top = '-120px';
-    } else {
-      doc.style.top = '0';
-      doc.style.backgroundColor = 'transparent';
-    }
-
-    if (window.scrollY < scrollPosition) {
-      doc.style.top = '0';
-      doc.style.color = 'white';
-      doc.style.backgroundColor = 'black';
-    }
+    if (window.scrollY < scrollPosition) setScrollClasses(`${styles.container!} ${styles.scrolledShowNav!}`);
 
     if (window.scrollY === 0) {
-      doc.style.top = '0';
-      doc.style.backgroundColor = 'transparent';
-      if (blackText.includes(router.pathname)) doc.style.color = 'black';
+      if (blackText.includes(router.pathname)) setScrollClasses(`${styles.container!} ${styles.blackText!}`);
+      else setScrollClasses(`${styles.container!} ${styles.whiteText!}`);
     }
 
     setScrollPosition(window.scrollY);
@@ -43,7 +37,7 @@ const Navbar = () => {
   })
 
   return (
-    <div className={styles.container} style={{ color: blackText.includes(router.pathname) ? 'black' : 'white'}}>
+    <div className={scrollClasses}>
       <h2><Link href='/' style={{ textDecoration: "none" }}>North & Middle Caicos</Link></h2>
       <div>
         <Link href='/about' legacyBehavior>

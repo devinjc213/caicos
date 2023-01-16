@@ -1,0 +1,18 @@
+.nav {
+    width: 100%;
+}
+.mobileNav {
+    width: 100%;
+}
+
+@media (max-width: 1200px) {
+    .nav {
+        display: none;
+    }
+}
+
+@media (min-width: 1200px) {
+    .mobileNav {
+        display: none;
+    }
+}
