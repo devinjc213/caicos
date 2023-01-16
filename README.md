@@ -2,6 +2,8 @@
 
 This is a [T3 Stack](https://create.t3.gg/) project (Next.js, tRPC, Prisma).
 
+Visit demo site: https://caicos.vercel.app/
+
 ## Features:
  - Responsive site
  - Ability to submit booking
