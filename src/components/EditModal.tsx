@@ -120,10 +120,7 @@ const EditModal = ({ booking, onClose, refetch  }: { booking: BookingType, onClo
               value={selectedDayRange}
               minimumDate={utils('en').getToday()}
               maximumDate={{ year: 2024, month: 2, day: 28 }}
-              onChange={(val: DayRange) => {
-                setSelectedDayRange({ from: val?.from, to: val?.to })
-                console.log(val);
-              }}
+              onChange={(val: DayRange) => setSelectedDayRange({ from: val?.from, to: val?.to })}
               disabledDays={blackoutDays}
               shouldHighlightWeekends
             />
