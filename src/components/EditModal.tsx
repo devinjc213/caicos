@@ -4,16 +4,20 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useOnClickOutside } from '../hooks/useClickOutside';
 import { api } from '../utils/api';
 import { Icons } from '../assets/svgs';
-import { RentalLocations } from '../components/BookingModal';
-import { Calendar, DayRange, utils } from '@amir04lm26/react-modern-calendar-date-picker';
+import { FormValidationType, RentalLocations } from '../components/BookingModal';
+import type { DayRange} from '@amir04lm26/react-modern-calendar-date-picker';
+import { Calendar, utils } from '@amir04lm26/react-modern-calendar-date-picker';
 import { useGetBlackoutDays } from '../hooks/useGetBlackoutDays';
+import { toast } from "react-toastify";
+import { formValidator } from '../utils/helpers';
+import Input from '../components/Input';
 
-const EditModal = ({ booking, onClose  }: { booking: BookingType, onClose: () => void }) => {
+const EditModal = ({ booking, onClose, refetch  }: { booking: BookingType, onClose: () => void, refetch: () => void }) => {
   const [firstName, setFirstName] = useState<string>(booking.firstName);
   const [lastName, setLastName] = useState<string>(booking.lastName);
   const [email, setEmail] = useState<string>(booking.email);
   const [phoneNumber, setPhoneNumber] = useState<string>(booking.phoneNumber);
-
+  const edit = api.bookings.editBooking.useMutation();
 
   const { checkInDate, checkOutDate } = booking;
   const inYear = Number(checkInDate.split('-')[0]);
@@ -22,18 +26,47 @@ const EditModal = ({ booking, onClose  }: { booking: BookingType, onClose: () =>
   const outYear = Number(checkOutDate.split('-')[0]);
   const outMonth = Number(checkOutDate.split('-')[1]);
   const outDay = Number(checkOutDate.split('-')[2]);
-  const [selectedDayRange, setSelectedDayRange] = useState<DayRange>({
+  const initialDayRange = {
     from: {
       year: inYear, month: inMonth, day: inDay
     },
     to: {
       year: outYear, month: outMonth, day: outDay
     }
-  });
-  const blackoutDays = useGetBlackoutDays(booking.rentalLocationId ?? 0, selectedDayRange);
-  const modalRef = useRef(null);
+  }
 
+  const [selectedDayRange, setSelectedDayRange] = useState<DayRange>(initialDayRange);
+  const blackoutDays = useGetBlackoutDays(booking.rentalLocationId ?? 0, initialDayRange);
+  const modalRef = useRef(null);
   useOnClickOutside([modalRef], onClose);
+
+  const [valid, setValid] = useState<FormValidationType>({
+    valid: true,
+    result: {
+      firstNameValid: true,
+      lastNameValid: true,
+      emailValid: true,
+      phoneNumberValid: true,
+      datesValid: true
+    }
+  });
+
+  const handleEdit = () => {
+    const validation = formValidator({ firstName, lastName, email, phoneNumber, selectedDayRange: initialDayRange })
+    setValid(validation);
+
+    if (validation.valid) {
+      edit.mutate({ id: booking.id, firstName, lastName, email, phoneNumber, checkInDate, checkOutDate, rentalLocationId: booking.rentalLocationId! })
+    }
+  };
+
+  useEffect(() => {
+    if (edit.isSuccess) {
+      toast('Booking updated');
+      refetch();
+      onClose();
+    } else if (edit.error) toast.error('An error has occurred, please try again');
+  }, [edit, onClose, refetch])
 
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
@@ -48,27 +81,27 @@ const EditModal = ({ booking, onClose  }: { booking: BookingType, onClose: () =>
   return (
     <div className={styles.overlay}>
       <div className={styles.modal} ref={modalRef}>
-        <div onClick={onClose} style={{ display: 'flex', width: '100%', justifyContent: 'flex-end' }}>
+        <div onClick={onClose} style={{ display: 'flex', width: '100%', justifyContent: 'flex-end', cursor: 'pointer' }}>
           {Icons.Close}
         </div>
         <h3>Edit booking</h3>
         <div className={styles.content}>
           <div className={styles.leftSide}>
             <div className={styles.row}>
-              <b>First name: </b>
-              <input value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+              <Input label='First name' value={firstName} onChange={e => setFirstName(e.target.value)} invalid={!valid.result.firstNameValid} />
+              <Input label='Last name' value={lastName} onChange={e => setLastName(e.target.value)} invalid={!valid.result.lastNameValid} />
             </div>
             <div className={styles.row}>
-              <b>Last name: </b>
-              <input value={lastName} onChange={(e) => setLastName(e.target.value)} />
+              <Input label='Email' value={email} onChange={e => setEmail(e.target.value)} invalid={!valid.result.emailValid} />
+              <Input
+                label='Phone number'
+                value={phoneNumber ? phoneNumber.toString() : ''}
+                onChange={e => setPhoneNumber(e.target.value)}
+                invalid={!valid.result.phoneNumberValid}
+              />
             </div>
-            <div className={styles.row}>
-              <b>Email: </b>
-              <input value={email} onChange={(e) => setEmail(e.target.value)} />
-            </div>
-            <div className={styles.row}>
-              <b>Phone: </b>
-              <input value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
+            <div className={styles.row} style={{ justifyContent:  'center' }}>
+              <b>{Object.keys(RentalLocations)[(booking.rentalLocationId ?? 0) - 1]?.split('_').join(' ').toUpperCase()}</b>
             </div>
             <div className={styles.row}>
               <b>Check in date: </b>
@@ -91,7 +124,7 @@ const EditModal = ({ booking, onClose  }: { booking: BookingType, onClose: () =>
           </div>
         </div>
         <div className={styles.buttonDiv}>
-          <button type='button' className={styles.confirmBtn}>Confirm</button>
+          <button type='button' className={styles.confirmBtn} onClick={handleEdit}>Confirm</button>
           <button type='button' className={styles.cancelBtn} onClick={onClose}>Cancel</button>
         </div>
       </div>

@@ -6,10 +6,11 @@ import 'react-modern-calendar-datepicker/lib/DatePicker.css';
 import styles from './BookingModal.module.css';
 import { api } from '../utils/api';
 import { z } from 'zod';
-import { getDaysInMonth } from '../utils/helpers';
 import Input from '../components/Input';
 import { Icons } from '../assets/svgs';
 import { useGetBlackoutDays } from '../hooks/useGetBlackoutDays';
+import { toast } from 'react-toastify';
+import { formValidator } from '../utils/helpers';
 
 export type RentalLocationsType = 'bottle_creek_retreat'
   | 'empyrean_villas'
@@ -40,12 +41,15 @@ export type BookingType = {
   rentalLocationId: number | null
 }
 
-type FormValidationType = {
-  firstNameValid: boolean
-  lastNameValid: boolean
-  emailValid: boolean
-  phoneNumberValid: boolean
-  datesValid: boolean
+export type FormValidationType = {
+  valid: boolean
+  result: {
+    firstNameValid: boolean
+    lastNameValid: boolean
+    emailValid: boolean
+    phoneNumberValid: boolean
+    datesValid: boolean
+  }
 }
 
 const BookingModal = ({ location, onClose }: { location: RentalLocationsType, onClose: () => void }) => {
@@ -59,11 +63,14 @@ const BookingModal = ({ location, onClose }: { location: RentalLocationsType, on
     to: null
   });
   const [valid, setValid] = useState<FormValidationType>({
-    firstNameValid: true,
-    lastNameValid: true,
-    emailValid: true,
-    phoneNumberValid: true,
-    datesValid: true
+    valid: true,
+    result: {
+      firstNameValid: true,
+      lastNameValid: true,
+      emailValid: true,
+      phoneNumberValid: true,
+      datesValid: true
+    }
   });
   const modalRef = useRef(null);
   const mutation = api.bookings.createBooking.useMutation();
@@ -95,37 +102,11 @@ const BookingModal = ({ location, onClose }: { location: RentalLocationsType, on
     return () => document.removeEventListener('keydown', handleEscape);
   }, [onClose]);
 
-  const handleValidation = () => {
-    const emailSchema = z.string().email();
-    const emailTest = () => {
-      try {
-        const result = emailSchema.parse(email)
-        if (result === email) return true;
-      } catch (e) {
-        return false;
-      }
-    }
-
-    const validEmail = emailTest() ?? false;
-    const validFirstName = firstName.length > 0;
-    const validLastName = lastName.length > 0;
-    const validPhoneNumber = phoneNumber ? phoneNumber.length >= 7 : false;
-    const validDates = (!(selectedDayRange.from === null || selectedDayRange.to === null));
-
-    return {
-      firstNameValid: validFirstName,
-      lastNameValid: validLastName,
-      emailValid: validEmail,
-      phoneNumberValid: validPhoneNumber,
-      datesValid: validDates
-    }
-  }
-
   const handleSubmit = () => {
-    const validation = handleValidation();
+    const validation = formValidator({ firstName, lastName, email, phoneNumber: phoneNumber ?? '', selectedDayRange });
     setValid(validation);
 
-    if (Object.values(validation).includes(false)) {
+    if (!validation.valid) {
       setShowError(true);
       return;
     } else {
@@ -138,26 +119,33 @@ const BookingModal = ({ location, onClose }: { location: RentalLocationsType, on
       }
     }
   };
+
+  useEffect(() => {
+    if (mutation.isSuccess) {
+      toast(<div>Booking received<br />Please check your email for confirmation</div>);
+      onClose();
+    }
+  }, [mutation, onClose]);
   
   return (
     <div className={styles.overlay}>
       <div className={styles.modal} ref={modalRef}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <h3 style={{ margin: '0 0 2rem 0'}}>{location && location?.replace(/_/g, ' ').toUpperCase()}</h3>
-          <div onClick={onClose}>
+          <div onClick={onClose} style={{ cursor: 'pointer' }}>
             {Icons.Close}
           </div>
         </div>
         <div className={styles.formAndDate}>
           <div style={{ display: 'grid', gap: '1rem' }}>
-            <Input label='First name' value={firstName} onChange={e => setFirstName(e.target.value)} invalid={!valid.firstNameValid} />
-            <Input label='Last name' value={lastName} onChange={e => setLastName(e.target.value)} invalid={!valid.lastNameValid} />
-            <Input label='Email' value={email} onChange={e => setEmail(e.target.value)} invalid={!valid.emailValid} />
+            <Input label='First name' value={firstName} onChange={e => setFirstName(e.target.value)} invalid={!valid.result.firstNameValid} />
+            <Input label='Last name' value={lastName} onChange={e => setLastName(e.target.value)} invalid={!valid.result.lastNameValid} />
+            <Input label='Email' value={email} onChange={e => setEmail(e.target.value)} invalid={!valid.result.emailValid} />
             <Input
               label='Phone number'
               value={phoneNumber ? phoneNumber.toString() : ''}
               onChange={e => setPhoneNumber(e.target.value)}
-              invalid={!valid.phoneNumberValid}
+              invalid={!valid.result.phoneNumberValid}
             />
             <button onClick={handleSubmit} className={styles.submitButton} type='submit' disabled={mutation.isLoading}>Book now</button>
           </div>
@@ -168,7 +156,7 @@ const BookingModal = ({ location, onClose }: { location: RentalLocationsType, on
             onChange={(val: DayRange) => setSelectedDayRange({ from: val?.from, to: val?.to })}
             disabledDays={blackoutDays}
             shouldHighlightWeekends
-            calendarClassName={!valid.datesValid ? styles.calendarInvalid : undefined}
+            calendarClassName={!valid.result.datesValid ? styles.calendarInvalid : undefined}
           />
         </div>
         {showError && (

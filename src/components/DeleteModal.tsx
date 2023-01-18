@@ -5,8 +5,9 @@ import { useOnClickOutside } from '../hooks/useClickOutside';
 import { api } from '../utils/api';
 import { Icons } from '../assets/svgs';
 import { RentalLocations } from '../components/BookingModal';
+import { toast } from 'react-toastify';
 
-const DeleteModal = ({ booking, onClose  }: { booking: BookingType, onClose: () => void }) => {
+const DeleteModal = ({ booking, onClose, refetch }: { booking: BookingType, onClose: () => void, refetch: () => void }) => {
   const deleteBooking = api.bookings.deleteBooking.useMutation();
   const modalRef = useRef(null);
   const rentalLocation = Object.keys(RentalLocations)[booking.rentalLocationId! - 1]?.split('_').join(' ').toUpperCase() ?? ''
@@ -22,6 +23,18 @@ const DeleteModal = ({ booking, onClose  }: { booking: BookingType, onClose: () 
 
     return () => document.removeEventListener('keydown', handleEscape);
   }, [onClose]);
+
+  const handleDelete = () => {
+    deleteBooking.mutate({ id: booking.id });
+  }
+
+  useEffect(() => {
+    if (deleteBooking.isSuccess) {
+      toast('Booking deleted');
+      refetch();
+      onClose();
+    } else if (deleteBooking.error) toast.error('An error has occurred, please try again');
+  }, [deleteBooking, onClose, refetch])
 
   return (
     <div className={styles.overlay}>
@@ -55,7 +68,7 @@ const DeleteModal = ({ booking, onClose  }: { booking: BookingType, onClose: () 
           {booking.checkOutDate}
         </div>
         <div className={styles.buttonDiv}>
-          <button type='button' className={styles.deleteBtn}>Delete</button>
+          <button type='button' className={styles.deleteBtn} onClick={handleDelete}>Delete</button>
           <button type='button' className={styles.cancelBtn} onClick={onClose}>Cancel</button>
         </div>
       </div>

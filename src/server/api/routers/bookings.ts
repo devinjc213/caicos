@@ -17,6 +17,24 @@ export const bookingsRouter = createTRPCRouter({
       return ctx.prisma.bookings.create({ data: input })
     }),
 
+  editBooking: publicProcedure
+    .input(z.object({
+      id: z.string(),
+      firstName: z.string(),
+      lastName: z.string(),
+      email: z.string(),
+      phoneNumber: z.string(),
+      checkInDate: z.string(),
+      checkOutDate: z.string(),
+      rentalLocationId: z.number()
+    }))
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.bookings.update({
+        where: { id: input.id },
+        data: input,
+      })
+    }),
+
   getBookingsAtLocation: publicProcedure
     .input(z.object({ id: z.number() }))
     .query(({ ctx, input }) => {

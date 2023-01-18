@@ -50,6 +50,7 @@ table {
   border-collapse: collapse;
   width: 100%;
   overflow: auto;
+  margin-bottom: 2rem;
 }
 
 td, th {
