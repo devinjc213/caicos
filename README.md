@@ -11,7 +11,6 @@ Visit demo site: https://caicos.vercel.app/
  - Black out dates that have already been booked
  
  ## TODO:
-- Edit validation
 - Email confirmation to customer and owner
 - Admin ability to manually add custom blackout dates without a booking
 - Ability to add rental locations

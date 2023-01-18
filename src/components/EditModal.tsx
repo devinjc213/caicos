@@ -55,8 +55,11 @@ const EditModal = ({ booking, onClose, refetch  }: { booking: BookingType, onClo
     const validation = formValidator({ firstName, lastName, email, phoneNumber, selectedDayRange: initialDayRange })
     setValid(validation);
 
-    if (validation.valid) {
-      edit.mutate({ id: booking.id, firstName, lastName, email, phoneNumber, checkInDate, checkOutDate, rentalLocationId: booking.rentalLocationId! })
+    const inDate = selectedDayRange.from && `${selectedDayRange.from.year}-${selectedDayRange.from?.month}-${selectedDayRange.from?.day}`;
+    const outDate = selectedDayRange.to && `${selectedDayRange.to.year}-${selectedDayRange.to.month}-${selectedDayRange.to.day}`;
+
+    if (validation.valid && inDate && outDate) {
+      edit.mutate({ id: booking.id, firstName, lastName, email, phoneNumber, checkInDate: inDate, checkOutDate: outDate, rentalLocationId: booking.rentalLocationId! })
     }
   };
 
