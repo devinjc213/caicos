@@ -1,0 +1,18 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 6rem auto 0 auto;
+    max-width: 1400px;
+    padding: 0 3rem;
+}
+
+.scrollContainer {
+    overflow: auto;
+}
+
+@media(max-width: 550px) {
+    .main > h1 {
+        font-size: 48px;
+    }
+}

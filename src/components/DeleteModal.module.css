@@ -1,0 +1,46 @@
+.overlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 5;
+    width: 100vw;
+    height: 100vh;
+}
+
+.modal {
+    background: #BCAA99;
+    border-radius: 15px;
+    padding: 2rem;
+}
+
+.buttonDiv {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.deleteBtn {
+    background: #871B03;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.cancelBtn {
+    background: #999882;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+}

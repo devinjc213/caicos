@@ -5,7 +5,7 @@ import styles from './Navbar.module.css';
 import { useEffect, useState } from 'react';
 import Socials from '../components/Socials';
 
-const blackText: string[] = ['/about', '/car-rentals', '/contact'];
+const blackText: string[] = ['/about', '/car-rentals', '/contact', '/bookings'];
 
 const MobileNavBar = () => {
   const router = useRouter();
@@ -37,7 +37,7 @@ const MobileNavBar = () => {
     window.addEventListener("scroll", scrollFunction);
 
     return () => window.removeEventListener("scroll", scrollFunction);
-  })
+  });
 
   const Hamburger = (
     <svg id='svg' width='15' height='12' viewBox='0 0 15 12' fill='none' xmlns='http://www.w3.org/2000/svg'>
@@ -47,10 +47,8 @@ const MobileNavBar = () => {
     </svg>
   );
 
-  useEffect(() => console.log(scrollClasses), [scrollClasses])
-
   return (
-    <div className={scrollClasses}>
+    <div className={show ? `${styles.mobileContainer!} ${styles.openNav!}` : scrollClasses}>
       <h2><Link href='/' style={{ textDecoration: "none" }}>North & Middle Caicos</Link></h2>
       <MobileMenuDropdown label={Hamburger} setShowParent={setShow}>
         <div>

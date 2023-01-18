@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router'
 
-export const blackText: string[] = ['/about', '/car-rentals', '/contact'];
+export const blackText: string[] = ['/about', '/car-rentals', '/contact', '/bookings'];
 
 const Navbar = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
