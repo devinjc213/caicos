@@ -19,7 +19,7 @@
 
 .image {
     position: relative;
-    width: fit-content;
+    max-width: 100%;
 }
 
 .image:hover > img {
