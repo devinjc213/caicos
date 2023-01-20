@@ -146,10 +146,14 @@ const BookingModal = ({ location, onClose }: { location: RentalLocationsType, on
         },
         body: JSON.stringify(bookingObject)
       }).then((res) => {
-        console.log(res);
         toast.update(bookingToast.current!, { render: 'Confirmation email sent', type: 'success', isLoading: false, autoClose: 3000 })
         onClose();
-      }).catch((err) => console.log(err))
+      }).catch((err) => toast.update(bookingToast.current!, {
+        render: 'Error occurred sending email.  Please contact to confirm.',
+        type: 'error',
+        isLoading: false,
+        autoClose: 3000
+      }));
     }
   }, [checkInDate, checkOutDate, email, firstName, lastName, location, mutation, onClose, phoneNumber]);
   
