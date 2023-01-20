@@ -73,8 +73,11 @@ const BookingModal = ({ location, onClose }: { location: RentalLocationsType, on
     }
   });
   const modalRef = useRef(null);
+  const bookingToast = useRef<number | string | null>(null);
   const mutation = api.bookings.createBooking.useMutation();
   const blackoutDays = useGetBlackoutDays(RentalLocations[location]);
+  const checkInDate = selectedDayRange.from && `${selectedDayRange.from.year}-${selectedDayRange.from?.month}-${selectedDayRange.from?.day}`;
+  const checkOutDate = selectedDayRange.to && `${selectedDayRange.to.year}-${selectedDayRange.to.month}-${selectedDayRange.to.day}`;
 
   useOnClickOutside([modalRef], onClose);
 
@@ -110,11 +113,10 @@ const BookingModal = ({ location, onClose }: { location: RentalLocationsType, on
       setShowError(true);
       return;
     } else {
-      const checkInDate = selectedDayRange.from && `${selectedDayRange.from.year}-${selectedDayRange.from?.month}-${selectedDayRange.from?.day}`;
-      const checkOutDate = selectedDayRange.to && `${selectedDayRange.to.year}-${selectedDayRange.to.month}-${selectedDayRange.to.day}`;
       const rentalLocationId = RentalLocations[location];
 
       if (firstName && lastName && email && phoneNumber && checkInDate && checkOutDate && rentalLocationId) {
+        bookingToast.current = toast.loading("Sending booking...", { autoClose: false });
         mutation.mutate({ firstName, lastName, email, phoneNumber, checkInDate, checkOutDate, rentalLocationId });
       }
     }
@@ -122,10 +124,38 @@ const BookingModal = ({ location, onClose }: { location: RentalLocationsType, on
 
   useEffect(() => {
     if (mutation.isSuccess) {
-      toast(<div>Booking received<br />Please check your email for confirmation</div>);
-      onClose();
+      toast.update(bookingToast.current!, { render: 'Booking received, sending email...', isLoading: true })
+      const bookingObject = {
+        firstName,
+        lastName,
+        email,
+        phoneNumber,
+        checkInDate,
+        checkOutDate,
+        rentalLocation: location.split('_').map((word: string) => {
+          const firstLetter = word.charAt(0).toUpperCase();
+          const restOfWord = word.slice(1)
+          return firstLetter + restOfWord;
+        }).join(' ')
+      }
+
+      fetch('/api/sendMail', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(bookingObject)
+      }).then((res) => {
+        toast.update(bookingToast.current!, { render: 'Confirmation email sent', type: 'success', isLoading: false, autoClose: 3000 })
+        onClose();
+      }).catch((err) => toast.update(bookingToast.current!, {
+        render: 'Error occurred sending email.  Please contact to confirm.',
+        type: 'error',
+        isLoading: false,
+        autoClose: 3000
+      }));
     }
-  }, [mutation, onClose]);
+  }, [checkInDate, checkOutDate, email, firstName, lastName, location, mutation, onClose, phoneNumber]);
   
   return (
     <div className={styles.overlay}>
