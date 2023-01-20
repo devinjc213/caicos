@@ -51,7 +51,7 @@ const MobileNavBar = () => {
     <div className={show ? `${styles.mobileContainer!} ${styles.openNav!}` : scrollClasses}>
       <h2><Link href='/' style={{ textDecoration: "none" }}>North & Middle Caicos</Link></h2>
       <MobileMenuDropdown label={Hamburger} setShowParent={setShow}>
-        <div>
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
             <Link href='/' legacyBehavior>
               <a className={router.pathname === '/' ? styles.mobileLinkActive : styles.mobileLink}>Home</a>
@@ -75,9 +75,7 @@ const MobileNavBar = () => {
               <a className={router.pathname === '/contact' ? styles.mobileLinkActive : styles.mobileLink}>Contact</a>
             </Link>
           </div>
-          <div style={{ position: 'absolute', bottom: '2rem', left: '50%', transform: 'translateX(-50%)' }}>
-            <Socials />
-          </div>
+          <Socials />
         </div>
       </MobileMenuDropdown>
     </div>
