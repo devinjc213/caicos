@@ -23,7 +23,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
 
     userOptions = {
       from: process.env.EMAIL_USER,
-      to: parseInput.data.firstName,
+      to: parseInput.data.email,
       subject: `Your stay at ${rentalLocation} is confirmed!`,
       body: `${firstName} ${lastName} ${checkInDate} -> ${checkOutDate}`,
     }
@@ -44,7 +44,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
     secure: true,
     auth: {
       user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASSWORD
+      pass: process.env.EMAIL_PASS
     }
   });
 
