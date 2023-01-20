@@ -76,6 +76,8 @@ const BookingModal = ({ location, onClose }: { location: RentalLocationsType, on
   const bookingToast = useRef<number | string | null>(null);
   const mutation = api.bookings.createBooking.useMutation();
   const blackoutDays = useGetBlackoutDays(RentalLocations[location]);
+  const checkInDate = selectedDayRange.from && `${selectedDayRange.from.year}-${selectedDayRange.from?.month}-${selectedDayRange.from?.day}`;
+  const checkOutDate = selectedDayRange.to && `${selectedDayRange.to.year}-${selectedDayRange.to.month}-${selectedDayRange.to.day}`;
 
   useOnClickOutside([modalRef], onClose);
 
@@ -111,8 +113,6 @@ const BookingModal = ({ location, onClose }: { location: RentalLocationsType, on
       setShowError(true);
       return;
     } else {
-      const checkInDate = selectedDayRange.from && `${selectedDayRange.from.year}-${selectedDayRange.from?.month}-${selectedDayRange.from?.day}`;
-      const checkOutDate = selectedDayRange.to && `${selectedDayRange.to.year}-${selectedDayRange.to.month}-${selectedDayRange.to.day}`;
       const rentalLocationId = RentalLocations[location];
 
       if (firstName && lastName && email && phoneNumber && checkInDate && checkOutDate && rentalLocationId) {
@@ -125,8 +125,6 @@ const BookingModal = ({ location, onClose }: { location: RentalLocationsType, on
   useEffect(() => {
     if (mutation.isSuccess) {
       toast.update(bookingToast.current!, { render: 'Booking received, sending email...', isLoading: true })
-      const checkInDate = selectedDayRange.from && `${selectedDayRange.from.year}-${selectedDayRange.from?.month}-${selectedDayRange.from?.day}`;
-      const checkOutDate = selectedDayRange.to && `${selectedDayRange.to.year}-${selectedDayRange.to.month}-${selectedDayRange.to.day}`;
       const bookingObject = {
         firstName,
         lastName,
@@ -149,11 +147,11 @@ const BookingModal = ({ location, onClose }: { location: RentalLocationsType, on
         body: JSON.stringify(bookingObject)
       }).then((res) => {
         console.log(res);
-        toast.update(bookingToast.current!, { render: 'Confirmation email sent', type: 'success' })
+        toast.update(bookingToast.current!, { render: 'Confirmation email sent', type: 'success', isLoading: false, autoClose: 3000 })
         onClose();
       }).catch((err) => console.log(err))
     }
-  }, [email, firstName, lastName, location, mutation, onClose, phoneNumber, selectedDayRange.from, selectedDayRange.to]);
+  }, [checkInDate, checkOutDate, email, firstName, lastName, location, mutation, onClose, phoneNumber]);
   
   return (
     <div className={styles.overlay}>

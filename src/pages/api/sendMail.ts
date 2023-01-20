@@ -53,7 +53,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
       console.log(error);
     } else {
       console.log('Email sent: ', info.response);
-      return res.status(200);
+      return res.status(200).json({ message: 'Email sent' });
     }
   });
 
@@ -62,7 +62,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
       console.log(error);
     } else {
       console.log('Email sent: ', info.response);
-      return res.status(200);
+      return res.status(200).json({ message: 'Email sent' });
     }
   });
 }
